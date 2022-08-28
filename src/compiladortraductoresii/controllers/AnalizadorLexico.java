@@ -51,11 +51,13 @@ public class AnalizadorLexico {
             }else if(TokenAnalyzer.isRealNumber(token)){
                 type = new TokenLexico(token, "Numero real");
             }else if(TokenAnalyzer.isString(token)){
-                type = new TokenLexico(token, "Cadena");
+                type = new TokenLexico(token, "Cadena de " + token.length() + " caracteres");
             }else if(TokenAnalyzer.isIdentifier(token)){
                 type = new TokenLexico(token, "Identificador");
+            }else if(TokenAnalyzer.isGrouping(token)){
+                type = new TokenLexico(token, "Caracter de agrupacion");
             }else{
-                type = new TokenLexico(token, "Caracteres");
+                type = new TokenLexico(token, "Caracteres no validos");
             }
             
             this.types.add(type);

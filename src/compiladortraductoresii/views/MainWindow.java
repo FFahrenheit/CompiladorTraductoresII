@@ -6,8 +6,17 @@
 package compiladortraductoresii.views;
 
 import compiladortraductoresii.controllers.AnalizadorLexico;
+import compiladortraductoresii.controllers.TokenTableBuilder;
 import compiladortraductoresii.models.TokenLexico;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.TableColumnModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -15,11 +24,23 @@ import java.util.ArrayList;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    private TokenTableBuilder tableBuilder;
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         initComponents();
+        
+        tableBuilder = new TokenTableBuilder();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        outputTable.setModel(tableBuilder.getTable());
+        outputTable.setDefaultRenderer(Object.class, centerRenderer);
+        
+        String[] headers = {"1","12"};
+        Object[][] tests = {
+            {"0", "1"}
+        };
     }
 
     /**
@@ -35,7 +56,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         inputArea = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        outputArea = new javax.swing.JTextArea();
+        outputTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -47,12 +68,15 @@ public class MainWindow extends javax.swing.JFrame {
         inputArea.setRows(5);
         jScrollPane1.setViewportView(inputArea);
 
-        outputArea.setEditable(false);
-        outputArea.setColumns(20);
-        outputArea.setFont(new java.awt.Font("Consolas", 0, 13)); // NOI18N
-        outputArea.setRows(5);
-        outputArea.setToolTipText("Aqui se mostrara la salida");
-        jScrollPane2.setViewportView(outputArea);
+        outputTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(outputTable);
 
         jButton1.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jButton1.setText("Analizador léxico");
@@ -79,13 +103,13 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(204, 204, 204))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,9 +122,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -111,13 +135,10 @@ public class MainWindow extends javax.swing.JFrame {
         String input = inputArea.getText();
         AnalizadorLexico analizador = new AnalizadorLexico(input);
         
-        outputArea.setText("");
         ArrayList<TokenLexico> tokens = analizador.getTokenTypes();
-        for(int i = 0; i < tokens.size(); i++){
-            outputArea.append(
-                    "[" + (i+1) + "]\t" + tokens.get(i).getValue() + "\t" + tokens.get(i).getType() + "\n"
-            );
-        }
+        tableBuilder.setTokens(tokens);
+        this.outputTable.setModel(tableBuilder.getTable());
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -163,6 +184,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea outputArea;
+    private javax.swing.JTable outputTable;
     // End of variables declaration//GEN-END:variables
 }

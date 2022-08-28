@@ -45,6 +45,10 @@ public class TokenAnalyzer {
         return token.startsWith("\"") && token.endsWith("\"");
     }
     
+    public static boolean isGrouping(String token){
+        return Tokens.caracteresAgrupacion.contains(token);
+    }
+    
     public static boolean isIdentifier(String token){
         String ID_REGEX = "[_a-zA-Z]{1}[_a-zA-Z0-9]*";
         return token.matches(ID_REGEX);

@@ -56,5 +56,14 @@ public class Tokens {
                             "!="
                     )
             );
-
+    
+    public static ArrayList<String> caracteresAgrupacion
+            = new ArrayList<>(
+                    Arrays.asList(
+                            "{",
+                            "}",
+                            "(",
+                            ")"
+                    )
+                );
 }
