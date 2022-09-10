@@ -8,7 +8,6 @@ package compiladortraductoresii.controllers;
 import compiladortraductoresii.models.TokenLexico;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,7 +41,7 @@ public class TokenTableBuilder {
         
         for(Integer i = 0; i < tokens.size(); i++){
             TokenLexico token = tokens.get(i);
-            String[] row = {i.toString(), token.getValue(), token.getType()};
+            String[] row = {""+(i+1), token.getValue(), token.getType()};
             rows[i] = row;
         }
         

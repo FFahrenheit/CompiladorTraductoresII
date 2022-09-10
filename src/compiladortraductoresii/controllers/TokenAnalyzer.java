@@ -52,8 +52,5 @@ public class TokenAnalyzer {
     public static boolean isIdentifier(String token){
         String ID_REGEX = "[_a-zA-Z]{1}[_a-zA-Z0-9]*";
         return token.matches(ID_REGEX);
-        //Pattern p = Pattern.compile("[_a-zA-Z][_a-zA-Z0-9]");
-        //Matcher m = p.matcher(token);
-        //return m.find();
     }
 }
