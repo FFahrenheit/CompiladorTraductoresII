@@ -6,6 +6,7 @@
 package compiladortraductoresii;
 
 import compiladortraductoresii.views.MainWindow;
+import compiladortraductoresii.views.MainWindowSintactico;
 
 /**
  *
@@ -17,7 +18,8 @@ public class CompiladorTraductoresII {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MainWindow mainWindow = new MainWindow();
+        // MainWindow mainWindow = new MainWindow();
+        MainWindowSintactico mainWindow = new MainWindowSintactico();
         mainWindow.setVisible(true);
         // TODO code application logic here
     }

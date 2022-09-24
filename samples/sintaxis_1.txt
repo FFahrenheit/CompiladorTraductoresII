@@ -1,0 +1,9 @@
+int main()
+{
+	int x = 10;
+	while(true)
+	{
+		print("x");
+	}
+	return 0;
+}

@@ -9,14 +9,8 @@ import compiladortraductoresii.controllers.AnalizadorLexico;
 import compiladortraductoresii.controllers.TokenTableBuilder;
 import compiladortraductoresii.models.TokenLexico;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 /**
  *

@@ -53,4 +53,8 @@ public class TokenAnalyzer {
         String ID_REGEX = "[_a-zA-Z]{1}[_a-zA-Z0-9]*";
         return token.matches(ID_REGEX);
     }
+    
+    public static boolean isEnd(String token){
+        return token.equals(";");
+    }
 }
