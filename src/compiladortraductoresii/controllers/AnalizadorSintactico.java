@@ -5,9 +5,11 @@
  */
 package compiladortraductoresii.controllers;
 
+import compiladortraductoresii.models.TokenSintactico;
 import compiladortraductoresii.resources.ErrorList;
-import compiladortraductoresii.resources.Tokens;
 import java.util.ArrayList;
+import compiladortraductoresii.resources.TokenTypes.TokenType;
+
 
 /**
  *
@@ -16,14 +18,15 @@ import java.util.ArrayList;
 public class AnalizadorSintactico {
     private String codigo;
     private String[] lineas;
-    private ArrayList<String> pila;
+    private ArrayList<TokenSintactico> tokens;
+    private int index;
     
     public AnalizadorSintactico(String fuente)
     {
         this.codigo = fuente;
         this.lineas = fuente.split("\n");
         System.out.println("" + lineas.length + " a analizar");
-        pila = new ArrayList<>();
+        tokens = new ArrayList<>();
     }
     
     public ErrorList analyze()
@@ -46,21 +49,35 @@ public class AnalizadorSintactico {
             {
                 String token = getTokenUntil(resto);
                 resto = getTokenFrom(resto);
-                System.out.println("token: " + token);
-                System.out.println("resto: " + resto);
                 if(!token.equals(""))
                 {
-                    pila.add(token);    
+                    tokens.add(new TokenSintactico(token, i + 1));
                 }
             }while(!resto.equals(""));
             
-            for(int j = 0; j < pila.size(); j++){
-                System.out.println(pila.get(j));
-            }
-
         }
         
+        for(int j = 0; j < tokens.size(); j++){
+            System.out.println("[" + (j+1) +  "]" + tokens.get(j));
+        }
         
+        this.index = 0;
+        while(!tokens.isEmpty())
+        {
+            TokenSintactico token = tokens.get(index);
+            
+            if(AnalizadorLexico.getType(token.getToken()) == TokenType.RESERVADA)
+            {
+                switch(token.getToken())
+                {
+                    case "bool":
+                    case "int":
+                    case "float":
+                    case "char":
+                    case "string":
+                }
+            }
+        }
         
         return errores;
     }
@@ -77,7 +94,6 @@ public class AnalizadorSintactico {
             {
                 return out;
             }
-            //System.out.println("token:::: " + token);
             if(TokenAnalyzer.isGrouping(token) || TokenAnalyzer.isOperator(token) || TokenAnalyzer.isEnd(token))
             {
                 return out.equals("") ? token : out;

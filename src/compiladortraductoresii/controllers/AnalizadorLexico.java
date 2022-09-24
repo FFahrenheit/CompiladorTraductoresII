@@ -8,7 +8,7 @@ package compiladortraductoresii.controllers;
 import compiladortraductoresii.models.TokenLexico;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import compiladortraductoresii.resources.TokenTypes.TokenType;
 
 /**
  *
@@ -63,5 +63,27 @@ public class AnalizadorLexico {
             this.types.add(type);
         }
         return this.types;
+    }
+    
+    public TokenType getType(String token){
+        if(TokenAnalyzer.isReserved(token)){
+            return TokenType.RESERVADA;
+        }else if(TokenAnalyzer.isOperator(token)){
+            return TokenType.OPERADOR;
+        }else if(TokenAnalyzer.isNumber(token)){
+            return TokenType.ENTERO;
+        }else if(TokenAnalyzer.isRealNumber(token)){
+            return TokenType.REAL;
+        }else if(TokenAnalyzer.isString(token)){
+            return TokenType.CADENA;
+        }else if(TokenAnalyzer.isIdentifier(token)){
+            return TokenType.IDENTIFICADOR;
+        }else if(TokenAnalyzer.isGrouping(token)){
+            return TokenType.AGRUPACION;
+        }else if(token.equals(";")){
+            return TokenType.FIN;
+        }else{
+            return TokenType.NO_VALIDO;
+        }
     }
 }

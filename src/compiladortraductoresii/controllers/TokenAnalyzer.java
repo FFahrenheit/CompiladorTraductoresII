@@ -6,8 +6,6 @@
 package compiladortraductoresii.controllers;
 
 import compiladortraductoresii.resources.Tokens;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *

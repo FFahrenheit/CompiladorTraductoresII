@@ -105,7 +105,7 @@ public class MainWindowSintactico extends javax.swing.JFrame {
 
         executeOptions.setText("Ejecución");
 
-        sintaxAnalyzer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        sintaxAnalyzer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         sintaxAnalyzer.setText("Analizar sintaxis");
         sintaxAnalyzer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
