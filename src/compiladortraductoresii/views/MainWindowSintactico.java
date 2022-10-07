@@ -69,7 +69,7 @@ public class MainWindowSintactico extends javax.swing.JFrame {
         codeArea.setColumns(20);
         codeArea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         codeArea.setRows(5);
-        codeArea.setText("int main()\n{\n\tint x = 10;\n\twhile(true)\n\t{\n\t\tprint(\"x\");\n\t}\n\treturn 0;\n}\n");
+        codeArea.setText("int main()\n{\n\tint x = 10;\n\twhile(x== 0)\n\t{\n\t\tprint(\"x\");\n\t}\n\treturn 0;\n}\n");
         codeScroll.setViewportView(codeArea);
 
         jLabel1.setText("Código");

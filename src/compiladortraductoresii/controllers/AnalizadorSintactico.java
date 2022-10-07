@@ -49,6 +49,8 @@ public class AnalizadorSintactico {
             {
                 String token = getTokenUntil(resto);
                 resto = getTokenFrom(resto);
+                System.out.println("Token: " + token);
+                System.out.println("Resto: " + resto);
                 if(!token.equals(""))
                 {
                     tokens.add(new TokenSintactico(token, i + 1));
@@ -62,22 +64,10 @@ public class AnalizadorSintactico {
         }
         
         this.index = 0;
-        while(!tokens.isEmpty())
-        {
-            TokenSintactico token = tokens.get(index);
-            
-            if(AnalizadorLexico.getType(token.getToken()) == TokenType.RESERVADA)
-            {
-                switch(token.getToken())
-                {
-                    case "bool":
-                    case "int":
-                    case "float":
-                    case "char":
-                    case "string":
-                }
-            }
-        }
+        
+//        while(!tokens.isEmpty())
+//        {
+//        }
         
         return errores;
     }
@@ -94,7 +84,15 @@ public class AnalizadorSintactico {
             {
                 return out;
             }
-            if(TokenAnalyzer.isGrouping(token) || TokenAnalyzer.isOperator(token) || TokenAnalyzer.isEnd(token))
+            if(TokenAnalyzer.isOperator(token))
+            {
+                String next = "" + input.charAt(i + 1);
+                if(next.equals("=") && (token.equals("=") || token.equals("<") || token.equals(">") || token.equals("!")))
+                {
+                    return out.equals("") ? token + next : out;
+                }
+            }
+            if(TokenAnalyzer.isGrouping(token) || TokenAnalyzer.isEnd(token))
             {
                 return out.equals("") ? token : out;
             }
@@ -110,14 +108,25 @@ public class AnalizadorSintactico {
         {
             String token = "" + input.charAt(i);
             token = token.trim();
-            //System.out.println("t: " + token);
+            System.out.println("t: " + token);
             if(token.equals(""))
             {
                 return input.substring(i).trim();
             }
-            if(TokenAnalyzer.isGrouping(token) || TokenAnalyzer.isOperator(token) || TokenAnalyzer.isEnd(token))
+            if(TokenAnalyzer.isOperator(token))
             {
-                return i == 0 ? input.substring(i + 1) : input.substring(i);
+                String next = "" + input.charAt(i + 1);
+                if(next.equals("=") && (token.equals("=") || token.equals("<") || token.equals(">") || token.equals("!")))
+                {
+                    System.out.println("Mayor");
+                    System.out.println(input);
+                    System.out.println(i);
+                    return i == 0 ? input.substring(i + 2).trim() : input.substring(i).trim();
+                }
+            }
+            if(TokenAnalyzer.isGrouping(token) || TokenAnalyzer.isEnd(token))
+            {
+                return i == 0 ? input.substring(i + 1).trim() : input.substring(i).trim();
             }
         }
         return "";

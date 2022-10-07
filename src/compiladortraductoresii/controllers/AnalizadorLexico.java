@@ -65,7 +65,7 @@ public class AnalizadorLexico {
         return this.types;
     }
     
-    public TokenType getType(String token){
+    public static TokenType getType(String token){
         if(TokenAnalyzer.isReserved(token)){
             return TokenType.RESERVADA;
         }else if(TokenAnalyzer.isOperator(token)){
