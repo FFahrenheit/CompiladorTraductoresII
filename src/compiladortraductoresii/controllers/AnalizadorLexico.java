@@ -6,18 +6,22 @@
 package compiladortraductoresii.controllers;
 
 import compiladortraductoresii.models.TokenLexico;
+import compiladortraductoresii.models.TokenType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  *
- * @author Usuario
+ * @author ivan
  */
 public class AnalizadorLexico {
     
     private ArrayList<String> tokens;
     private ArrayList<TokenLexico> types;
+    private Map<String, Integer> summary;
 
     public ArrayList<String> getTokens() {
         return tokens;
@@ -31,37 +35,36 @@ public class AnalizadorLexico {
         String[] partes = input.split("[\\n| |\t]");
         
         this.tokens = new ArrayList<>(Arrays.asList(partes));
-        
         this.tokens.removeIf(t -> t.isEmpty());
         
-
     }
     
-    public ArrayList<TokenLexico> getTokenTypes(){
+    public void loadTokenTypes(){
         this.types = new ArrayList<>();
+        this.summary = new HashMap<>();
+        for(TokenType type : TokenType.values()) {
+            this.summary.put(type.getLabel(), 0);
+        }
         
         for(String token : this.tokens){
-            TokenLexico type;
-            if(TokenAnalyzer.isReserved(token)){
-                type = new TokenLexico(token, "Palabra reservada");
-            }else if(TokenAnalyzer.isOperator(token)){
-                type = new TokenLexico(token, "Operador");
-            }else if(TokenAnalyzer.isNumber(token)){
-                type = new TokenLexico(token, "Numero entero");
-            }else if(TokenAnalyzer.isRealNumber(token)){
-                type = new TokenLexico(token, "Numero real");
-            }else if(TokenAnalyzer.isString(token)){
-                type = new TokenLexico(token, "Cadena de " + token.length() + " caracteres");
-            }else if(TokenAnalyzer.isIdentifier(token)){
-                type = new TokenLexico(token, "Identificador");
-            }else if(TokenAnalyzer.isGrouping(token)){
-                type = new TokenLexico(token, "Caracter de agrupacion");
-            }else{
-                type = new TokenLexico(token, "Caracteres no validos");
+            TokenType tokenType = TokenAnalyzer.getTokenType(token);
+            String label = tokenType.getLabel();
+            this.summary.put(label, summary.get(label) + 1);
+            
+            if (tokenType == TokenType.CADENA) {
+                label += " de " + token.length() + " caracteres";
             }
             
-            this.types.add(type);
+            this.types.add(new TokenLexico(token, label));
         }
+    }
+    
+    public ArrayList<TokenLexico> getTokenTypes() {
         return this.types;
     }
+    
+    public Map<String, Integer> getSummary() {
+        return this.summary;
+    }
+   
 }

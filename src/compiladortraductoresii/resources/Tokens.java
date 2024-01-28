@@ -12,7 +12,7 @@ import java.util.Arrays;
  *
  * @author Usuario
  */
-public class Tokens {
+public class Tokens {    
     public static ArrayList<String> palabrasReservadas 
             = new ArrayList<String>(
                     Arrays.asList(

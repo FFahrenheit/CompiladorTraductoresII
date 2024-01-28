@@ -8,7 +8,7 @@ package compiladortraductoresii.models;
 
 /**
  *
- * @author Usuario
+ * @author ivan
  */
 public class TokenLexico {
     private String value;

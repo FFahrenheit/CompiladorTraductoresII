@@ -5,15 +5,79 @@
  */
 package compiladortraductoresii.controllers;
 
+import compiladortraductoresii.models.TokenType;
 import compiladortraductoresii.resources.Tokens;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
- * @author Usuario
+ * @author ivan
  */
 public class TokenAnalyzer {
+    
+    public static TokenType getTokenType(String token) {
+        switch(token) {
+            case "#define":
+                return TokenType.CONSTANTE;
+            case ";":
+                return TokenType.PUNTO_Y_COMA;
+            case ",":
+                return TokenType.COMA;
+            case "(":
+                return TokenType.PARENTESIS_ABRIENDO;
+            case ")":
+                return TokenType.PARENTESIS_CERRANDO;
+            case "{":
+                return TokenType.LLAVE_ABRIENDO;
+            case "}":
+                return TokenType.LLAVE_CERRANDO;
+            case "if":
+                return TokenType.IGUAL;
+            case "while":
+                return TokenType.WHILE;
+            case "return":
+                return TokenType.RETURN;
+            case "else":
+                return TokenType.ELSE;
+            case "for":
+                return TokenType.FOR;
+            case "+":
+            case "-":
+                return TokenType.OP_ADICION;
+            case "*":
+            case "/":
+            case "<<":
+            case ">>":
+                return TokenType.OP_MULTIPLICACION;
+            case "&&":
+            case "||":
+                return TokenType.OP_LOGICO;            
+        }
+        if (getOptions("int", "char", "double", "void", "float", "bool", "string").contains(token)) {
+            return TokenType.TIPO_DE_DATO;
+        }
+        if (getOptions("<", ">", "<=", ">=", "==", "!=").contains(token)) {
+            return TokenType.OP_RELACIONAL;
+        }
+        if (isNumber(token)) {
+            return TokenType.NUMERO_ENTERO;
+        }
+        if (isRealNumber(token)) {
+            return TokenType.NUMERO_REAL;
+        }
+        if (isIdentifier(token)) {
+            return TokenType.IDENTIFICADOR;
+        }
+        if (isString(token)) {
+            return TokenType.CADENA;
+        }
+        return TokenType.DESCONOCIDO;
+    }
+    
+    public static ArrayList<String> getOptions(String... elements) {
+        return new ArrayList<>(Arrays.asList(elements));
+    }
     
     public static boolean isReserved(String token){
         return Tokens.palabrasReservadas.contains(token);
