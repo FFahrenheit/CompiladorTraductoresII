@@ -28,6 +28,7 @@ public enum TokenType {
     OP_ADICION ("Operador adición"),
     OP_MULTIPLICACION ("Operador multiplicacion"),
     OP_LOGICO ("Operardor logico"),
+    OP_ASIGNACION ("Operador de asignacion"),
     OP_RELACIONAL ("Operador relacional"),
     SIGNO_DOLAR ("Signo de dolar"),
     NUMERO_ENTERO ("Numero entero"),

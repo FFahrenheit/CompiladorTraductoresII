@@ -66,6 +66,7 @@ public class MainWindow extends javax.swing.JFrame {
         inputArea.setColumns(20);
         inputArea.setFont(new java.awt.Font("Consolas", 0, 13)); // NOI18N
         inputArea.setRows(5);
+        inputArea.setText("\nint main() {\n\tint x = 12;\n\tstring cadena = \"hola\";\n\tif (x == 12 && x <= 32) {\n\t\twhile (operador) {\n\t\t\thola;\t\t\n\t\t}\n\t}\n}\n");
         jScrollPane1.setViewportView(inputArea);
 
         outputTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -121,15 +122,15 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(33, 33, 33))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(371, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(372, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(319, 319, 319)))
         );
         layout.setVerticalGroup(
@@ -173,7 +174,7 @@ public class MainWindow extends javax.swing.JFrame {
         tableBuilder.setTokens(tokens);
         this.outputTable1.setModel(tableBuilder.getTable());
         summaryBuilder.setTokens(tokenSummary);
-        this.outputTable1.setModel(summaryBuilder.getTable());
+        this.outputTable.setModel(summaryBuilder.getTable());
         
 
     }//GEN-LAST:event_jButton1ActionPerformed

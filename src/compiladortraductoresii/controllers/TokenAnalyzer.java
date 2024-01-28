@@ -52,7 +52,9 @@ public class TokenAnalyzer {
                 return TokenType.OP_MULTIPLICACION;
             case "&&":
             case "||":
-                return TokenType.OP_LOGICO;            
+                return TokenType.OP_LOGICO;
+            case "=":
+                return TokenType.OP_ASIGNACION;
         }
         if (getOptions("int", "char", "double", "void", "float", "bool", "string").contains(token)) {
             return TokenType.TIPO_DE_DATO;

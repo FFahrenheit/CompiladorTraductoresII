@@ -32,11 +32,10 @@ public class AnalizadorLexico {
     }
     
     public AnalizadorLexico(String input){
-        String[] partes = input.split("[\\n| |\t]");
-        
+        //String[] partes = input.split(String.format(   "((?<=%1$s)|(?=%1$s))"   ,"(\n|\\s|\\{|\\}|\\(|\\)|;|,)"));
+        String[] partes = input.split(String.format("((?<=%1$s)|(?=%1$s))", "[\n\\s{}();,]"));
         this.tokens = new ArrayList<>(Arrays.asList(partes));
-        this.tokens.removeIf(t -> t.isEmpty());
-        
+        this.tokens.removeIf(t -> t.trim().isEmpty());
     }
     
     public void loadTokenTypes(){
@@ -52,11 +51,12 @@ public class AnalizadorLexico {
             this.summary.put(label, summary.get(label) + 1);
             
             if (tokenType == TokenType.CADENA) {
-                label += " de " + token.length() + " caracteres";
+                label += " de " + (token.length() - 2) + " caracteres";
             }
             
             this.types.add(new TokenLexico(token, label));
         }
+        System.out.println("" + this.types.size());
     }
     
     public ArrayList<TokenLexico> getTokenTypes() {
